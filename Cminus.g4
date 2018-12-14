@@ -30,8 +30,8 @@ return_statemet: RETURN expression? SEMI;
 expression: var EQUAL expression | simple_expression;
 var: ID | ID LBRACK expression RBRACK;
 simple_expression:
-    additive_expression relop additive_expression
-    | additive_expression;
+    left=additive_expression relop right=additive_expression
+    | operation=additive_expression;
 relop: LE | LT | GT | GE | EQUAL_EQUAL | NOT_EQUAL;
 additive_expression: additive_expression addop term | term;
 addop: ADD | SUB;
@@ -71,4 +71,3 @@ MUL : '*' ;
 DIV : '/' ;
 COMMENT: '/*' (.)*? '*/' -> skip;
 WS: [ \t\r\n]+ -> skip;
-

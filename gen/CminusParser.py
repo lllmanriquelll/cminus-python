@@ -1536,16 +1536,19 @@ class CminusParser ( Parser ):
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
             self.parser = parser
+            self.left = None # Additive_expressionContext
+            self.right = None # Additive_expressionContext
+            self.operation = None # Additive_expressionContext
+
+        def relop(self):
+            return self.getTypedRuleContext(CminusParser.RelopContext,0)
+
 
         def additive_expression(self, i:int=None):
             if i is None:
                 return self.getTypedRuleContexts(CminusParser.Additive_expressionContext)
             else:
                 return self.getTypedRuleContext(CminusParser.Additive_expressionContext,i)
-
-
-        def relop(self):
-            return self.getTypedRuleContext(CminusParser.RelopContext,0)
 
 
         def getRuleIndex(self):
@@ -1579,17 +1582,17 @@ class CminusParser ( Parser ):
             if la_ == 1:
                 self.enterOuterAlt(localctx, 1)
                 self.state = 193
-                self.additive_expression(0)
+                localctx.left = self.additive_expression(0)
                 self.state = 194
                 self.relop()
                 self.state = 195
-                self.additive_expression(0)
+                localctx.right = self.additive_expression(0)
                 pass
 
             elif la_ == 2:
                 self.enterOuterAlt(localctx, 2)
                 self.state = 197
-                self.additive_expression(0)
+                localctx.operation = self.additive_expression(0)
                 pass
 
 
