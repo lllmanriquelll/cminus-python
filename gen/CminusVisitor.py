@@ -14,11 +14,6 @@ class CminusVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by CminusParser#declaration_list.
-    def visitDeclaration_list(self, ctx:CminusParser.Declaration_listContext):
-        return self.visitChildren(ctx)
-
-
     # Visit a parse tree produced by CminusParser#declaration.
     def visitDeclaration(self, ctx:CminusParser.DeclarationContext):
         return self.visitChildren(ctx)
@@ -54,8 +49,8 @@ class CminusVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by CminusParser#compound_statement.
-    def visitCompound_statement(self, ctx:CminusParser.Compound_statementContext):
+    # Visit a parse tree produced by CminusParser#compound_decl.
+    def visitCompound_decl(self, ctx:CminusParser.Compound_declContext):
         return self.visitChildren(ctx)
 
 
@@ -74,23 +69,23 @@ class CminusVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by CminusParser#expression_statement.
-    def visitExpression_statement(self, ctx:CminusParser.Expression_statementContext):
+    # Visit a parse tree produced by CminusParser#expression_decl.
+    def visitExpression_decl(self, ctx:CminusParser.Expression_declContext):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by CminusParser#selection_statement.
-    def visitSelection_statement(self, ctx:CminusParser.Selection_statementContext):
+    # Visit a parse tree produced by CminusParser#selection_decl.
+    def visitSelection_decl(self, ctx:CminusParser.Selection_declContext):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by CminusParser#iteration_statement.
-    def visitIteration_statement(self, ctx:CminusParser.Iteration_statementContext):
+    # Visit a parse tree produced by CminusParser#iteration_decl.
+    def visitIteration_decl(self, ctx:CminusParser.Iteration_declContext):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by CminusParser#return_statemet.
-    def visitReturn_statemet(self, ctx:CminusParser.Return_statemetContext):
+    # Visit a parse tree produced by CminusParser#return_decl.
+    def visitReturn_decl(self, ctx:CminusParser.Return_declContext):
         return self.visitChildren(ctx)
 
 
@@ -109,28 +104,13 @@ class CminusVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by CminusParser#relop.
-    def visitRelop(self, ctx:CminusParser.RelopContext):
-        return self.visitChildren(ctx)
-
-
     # Visit a parse tree produced by CminusParser#additive_expression.
     def visitAdditive_expression(self, ctx:CminusParser.Additive_expressionContext):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by CminusParser#addop.
-    def visitAddop(self, ctx:CminusParser.AddopContext):
-        return self.visitChildren(ctx)
-
-
     # Visit a parse tree produced by CminusParser#term.
     def visitTerm(self, ctx:CminusParser.TermContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by CminusParser#mulop.
-    def visitMulop(self, ctx:CminusParser.MulopContext):
         return self.visitChildren(ctx)
 
 
@@ -141,16 +121,6 @@ class CminusVisitor(ParseTreeVisitor):
 
     # Visit a parse tree produced by CminusParser#call.
     def visitCall(self, ctx:CminusParser.CallContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by CminusParser#args.
-    def visitArgs(self, ctx:CminusParser.ArgsContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by CminusParser#arg_list.
-    def visitArg_list(self, ctx:CminusParser.Arg_listContext):
         return self.visitChildren(ctx)
 
 

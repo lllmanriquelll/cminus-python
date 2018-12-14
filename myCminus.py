@@ -1,4 +1,5 @@
 from antlr4 import *
+from AstCreator import CreateAst
 from gen.CminusLexer import CminusLexer
 from gen.CminusParser import CminusParser
 
@@ -7,4 +8,7 @@ lexer = CminusLexer(input_stream)
 stream = CommonTokenStream(lexer)
 parser = CminusParser(stream)
 tree = parser.program()
+
+ast = CreateAst().visit(tree)
+
 

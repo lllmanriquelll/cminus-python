@@ -17,15 +17,6 @@ class CminusListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by CminusParser#declaration_list.
-    def enterDeclaration_list(self, ctx:CminusParser.Declaration_listContext):
-        pass
-
-    # Exit a parse tree produced by CminusParser#declaration_list.
-    def exitDeclaration_list(self, ctx:CminusParser.Declaration_listContext):
-        pass
-
-
     # Enter a parse tree produced by CminusParser#declaration.
     def enterDeclaration(self, ctx:CminusParser.DeclarationContext):
         pass
@@ -89,12 +80,12 @@ class CminusListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by CminusParser#compound_statement.
-    def enterCompound_statement(self, ctx:CminusParser.Compound_statementContext):
+    # Enter a parse tree produced by CminusParser#compound_decl.
+    def enterCompound_decl(self, ctx:CminusParser.Compound_declContext):
         pass
 
-    # Exit a parse tree produced by CminusParser#compound_statement.
-    def exitCompound_statement(self, ctx:CminusParser.Compound_statementContext):
+    # Exit a parse tree produced by CminusParser#compound_decl.
+    def exitCompound_decl(self, ctx:CminusParser.Compound_declContext):
         pass
 
 
@@ -125,39 +116,39 @@ class CminusListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by CminusParser#expression_statement.
-    def enterExpression_statement(self, ctx:CminusParser.Expression_statementContext):
+    # Enter a parse tree produced by CminusParser#expression_decl.
+    def enterExpression_decl(self, ctx:CminusParser.Expression_declContext):
         pass
 
-    # Exit a parse tree produced by CminusParser#expression_statement.
-    def exitExpression_statement(self, ctx:CminusParser.Expression_statementContext):
-        pass
-
-
-    # Enter a parse tree produced by CminusParser#selection_statement.
-    def enterSelection_statement(self, ctx:CminusParser.Selection_statementContext):
-        pass
-
-    # Exit a parse tree produced by CminusParser#selection_statement.
-    def exitSelection_statement(self, ctx:CminusParser.Selection_statementContext):
+    # Exit a parse tree produced by CminusParser#expression_decl.
+    def exitExpression_decl(self, ctx:CminusParser.Expression_declContext):
         pass
 
 
-    # Enter a parse tree produced by CminusParser#iteration_statement.
-    def enterIteration_statement(self, ctx:CminusParser.Iteration_statementContext):
+    # Enter a parse tree produced by CminusParser#selection_decl.
+    def enterSelection_decl(self, ctx:CminusParser.Selection_declContext):
         pass
 
-    # Exit a parse tree produced by CminusParser#iteration_statement.
-    def exitIteration_statement(self, ctx:CminusParser.Iteration_statementContext):
+    # Exit a parse tree produced by CminusParser#selection_decl.
+    def exitSelection_decl(self, ctx:CminusParser.Selection_declContext):
         pass
 
 
-    # Enter a parse tree produced by CminusParser#return_statemet.
-    def enterReturn_statemet(self, ctx:CminusParser.Return_statemetContext):
+    # Enter a parse tree produced by CminusParser#iteration_decl.
+    def enterIteration_decl(self, ctx:CminusParser.Iteration_declContext):
         pass
 
-    # Exit a parse tree produced by CminusParser#return_statemet.
-    def exitReturn_statemet(self, ctx:CminusParser.Return_statemetContext):
+    # Exit a parse tree produced by CminusParser#iteration_decl.
+    def exitIteration_decl(self, ctx:CminusParser.Iteration_declContext):
+        pass
+
+
+    # Enter a parse tree produced by CminusParser#return_decl.
+    def enterReturn_decl(self, ctx:CminusParser.Return_declContext):
+        pass
+
+    # Exit a parse tree produced by CminusParser#return_decl.
+    def exitReturn_decl(self, ctx:CminusParser.Return_declContext):
         pass
 
 
@@ -188,15 +179,6 @@ class CminusListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by CminusParser#relop.
-    def enterRelop(self, ctx:CminusParser.RelopContext):
-        pass
-
-    # Exit a parse tree produced by CminusParser#relop.
-    def exitRelop(self, ctx:CminusParser.RelopContext):
-        pass
-
-
     # Enter a parse tree produced by CminusParser#additive_expression.
     def enterAdditive_expression(self, ctx:CminusParser.Additive_expressionContext):
         pass
@@ -206,30 +188,12 @@ class CminusListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by CminusParser#addop.
-    def enterAddop(self, ctx:CminusParser.AddopContext):
-        pass
-
-    # Exit a parse tree produced by CminusParser#addop.
-    def exitAddop(self, ctx:CminusParser.AddopContext):
-        pass
-
-
     # Enter a parse tree produced by CminusParser#term.
     def enterTerm(self, ctx:CminusParser.TermContext):
         pass
 
     # Exit a parse tree produced by CminusParser#term.
     def exitTerm(self, ctx:CminusParser.TermContext):
-        pass
-
-
-    # Enter a parse tree produced by CminusParser#mulop.
-    def enterMulop(self, ctx:CminusParser.MulopContext):
-        pass
-
-    # Exit a parse tree produced by CminusParser#mulop.
-    def exitMulop(self, ctx:CminusParser.MulopContext):
         pass
 
 
@@ -248,24 +212,6 @@ class CminusListener(ParseTreeListener):
 
     # Exit a parse tree produced by CminusParser#call.
     def exitCall(self, ctx:CminusParser.CallContext):
-        pass
-
-
-    # Enter a parse tree produced by CminusParser#args.
-    def enterArgs(self, ctx:CminusParser.ArgsContext):
-        pass
-
-    # Exit a parse tree produced by CminusParser#args.
-    def exitArgs(self, ctx:CminusParser.ArgsContext):
-        pass
-
-
-    # Enter a parse tree produced by CminusParser#arg_list.
-    def enterArg_list(self, ctx:CminusParser.Arg_listContext):
-        pass
-
-    # Exit a parse tree produced by CminusParser#arg_list.
-    def exitArg_list(self, ctx:CminusParser.Arg_listContext):
         pass
 
 
