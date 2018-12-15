@@ -24,7 +24,7 @@ class VarDecl(AstNumber):
         self.num = num
 
 
-class TypeSpec(AstNumber):
+class TypeSpecifier(AstNumber):
     def __init__(self, type_spec, line=-1):
         super().__init__(line)
         self.typeSpec = type_spec
@@ -86,7 +86,7 @@ class Stm(AstNumber):
         self.child = child
 
 
-class ExpressionoDecl(AstNumber):
+class ExpressionDecl(AstNumber):
     def __init__(self, exp, line=-1):
         super().__init__(line)
         self.exp = exp
@@ -118,7 +118,7 @@ class Express(AstNumber):
         super().__init__(line)
         self.var = var
         self.expression = expression
-        self.simplesExpression = simple_expression
+        self.simpleExpression = simple_expression
 
 
 class Variable(AstNumber):

@@ -1,5 +1,5 @@
 from antlr4 import *
-from AstCreator import CreateAst
+from CminusAST import CreateAst
 from gen.CminusLexer import CminusLexer
 from gen.CminusParser import CminusParser
 

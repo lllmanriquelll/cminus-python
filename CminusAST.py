@@ -2,76 +2,78 @@ from gen.CminusParser import CminusParser
 from gen.CminusVisitor import CminusVisitor
 from CminusComponents import *
 
+
 class CreateAst(CminusVisitor):
+
     # Visit a parse tree produced by CminusParser#programa.
-    def visitPrograma(self, ctx: CminusParser.ProgramaContext):
-        return Programa(
-            decl_lista=[self.visit(decls) for decls in ctx.decl],
+    def visitProgram(self, ctx: CminusParser.ProgramContext):
+        return Program(
+            decl_list=[self.visit(decls) for decls in ctx.declaration_list],
             line=ctx.start.line,
         )
 
     # Visit a parse tree produced by CminusParser#declaracao_lista.
-    def visitDeclaracao(self, ctx: CminusParser.DeclaracaoContext):
+    def visitDeclaration(self, ctx: CminusParser.DeclarationContext):
         return Decl(
-            varDecl=self.visit(ctx.var_declaracao()) if ctx.var_declaracao() is not None else None,
-            funDecl=self.visit(ctx.fun_declaracao()) if ctx.fun_declaracao() is not None else None,
+            var_decl=self.visit(ctx.var_declaration()) if ctx.var_declaration() is not None else None,
+            fun_decl=self.visit(ctx.fun_declaration()) if ctx.fun_declaration() is not None else None,
             line=ctx.start.line,
         )
 
     # Visit a parse tree produced by CminusParser#var_declaracao.
-    def visitVar_declaracao(self, ctx: CminusParser.Var_declaracaoContext):
-        if ctx.NUM() is not None:
+    def visitVar_declaration(self, ctx: CminusParser.Var_declarationContext):
+        if ctx.NUMBER() is not None:
             return VarDecl(
-                tipo=(self.visit(ctx.tipo_especificador())),
+                type_=(self.visit(ctx.type_specifier())),
                 id_=ctx.ID().getText(),
-                num=ctx.NUM().getText(),
+                num=ctx.NUMBER().getText(),
                 line=ctx.start.line,
             )
         return VarDecl(
-            tipo=self.visit(ctx.tipo_especificador()),
+            type_=self.visit(ctx.type_specifier()),
             id_=ctx.ID().getText(),
             line=ctx.start.line,
         )
 
     # Visit a parse tree produced by CminusParser#tipo_especificador.
-    def visitTipo_especificador(self, ctx: CminusParser.Tipo_especificadorContext):
-        return TipoEsp(
-            tipoE_=ctx.getText(),
+    def visitType_specifier(self, ctx: CminusParser.Type_specifierContext):
+        return TypeSpecifier(
+            type_spec=ctx.getText(),
             line=ctx.start.line,
         )
 
     # Visit a parse tree produced by CminusParser#fun_declaracao.
-    def visitFun_declaracao(self, ctx: CminusParser.Fun_declaracaoContext):
+    def visitFun_declaration(self, ctx: CminusParser.Fun_declarationContext):
         return FunDecl(
-            tipoE=self.visit(ctx.tipo_especificador()),
+            type_spec=self.visit(ctx.type_specifier()),
             id_=ctx.ID().getText(),
-            parametros=self.visit(ctx.params()),
-            declComp=self.visit(ctx.composto_decl()),
+            params=self.visit(ctx.params()),
+            decl_comp=self.visit(ctx.compound_decl()),
             line=ctx.start.line,
         )
 
     # Visit a parse tree produced by CminusParser#params.
     def visitParams(self, ctx: CminusParser.ParamsContext):
-        if ctx.param_lista() is not None:
-            return Parametros(
-                listaParam=self.visit(ctx.param_lista()),
+        if ctx.param_list() is not None:
+            return Params(
+                param_list=self.visit(ctx.param_list()),
                 line=ctx.start.line,
             )
-        return Parametros(
-            tipo=ctx.getText(),
+        return Params(
+            type_=ctx.getText(),
             line=ctx.start.line,
         )
 
     # Visit a parse tree produced by CminusParser#param_lista.
-    def visitParam_lista(self, ctx: CminusParser.Param_listaContext):
-        if ctx.param_lista() is not None:
-            return ListaParametros(
-                listaParam=self.visit(ctx.param_lista()),
+    def visitParam_list(self, ctx: CminusParser.Param_listContext):
+        if ctx.param_list() is not None:
+            return ParamList(
+                param_list=self.visit(ctx.param_list()),
                 param=self.visit(ctx.param()),
                 line=ctx.start.line
             )
-        return ListaParametros(
-            listaParam=None,
+        return ParamList(
+            param_list=None,
             param=self.visit(ctx.param()),
             line=ctx.start.line
         )
@@ -79,169 +81,169 @@ class CreateAst(CminusVisitor):
     # Visit a parse tree produced by CminusParser#param.
     def visitParam(self, ctx: CminusParser.ParamContext):
         return Param(
-            tipoEsp=self.visit(ctx.tipo_especificador()),
+            type_spec=self.visit(ctx.type_specifier()),
             id_=ctx.ID().getText(),
-            flagVet=True if ctx.LSBRACKET() else False,
+            flag_vet=True if ctx.LSBRACKET() else False,
             line=ctx.start.line,
         )
 
     # Visit a parse tree produced by CminusParser#composto_decl.
-    def visitComposto_decl(self, ctx: CminusParser.Composto_declContext):
+    def visitCompound_decl(self, ctx: CminusParser.Compound_declContext):
         return CompDecl(
-            localDecl=[self.visit(decl) for decl in ctx.l_decl] if ctx.local_declaracoes() else [],
-            stmLista=[self.visit(stm) for stm in ctx.stm_list] if ctx.statement_lista() else [],
+            local_decl=[self.visit(decl) for decl in ctx.local_declarations] if ctx.local_declarations() else [],
+            stm_list=[self.visit(stm) for stm in ctx.stm_list] if ctx.statement_list() else [],
             line=ctx.start.line,
         )
 
     # Visit a parse tree produced by CminusParser#local_declaracoes.
-    def visitLocal_declaracoes(self, ctx: CminusParser.Local_declaracoesContext):
-        return LocalDeclaracoes(
-            varDecl=[self.visit(decl) for decl in ctx.var_decl],
+    def visitLocal_declarations(self, ctx: CminusParser.Local_declarationsContext):
+        return LocalDeclarations(
+            var_decl=[self.visit(decl) for decl in ctx.var_declaration],
             line=ctx.start.line,
         )
 
     # Visit a parse tree produced by CminusParser#statement_lista.
-    def visitStatement_lista(self, ctx: CminusParser.Statement_listaContext):
-        return StatementLista(
+    def visitStatement_list(self, ctx: CminusParser.Statement_listContext):
+        return StatementList(
             stm=[self.visit(stm) for stm in ctx.stms],
             line=ctx.start.line,
         )
 
     # Visit a parse tree produced by CminusParser#statement.
     def visitStatement(self, ctx: CminusParser.StatementContext):
-        if ctx.expressao_decl():
-            return Stm(child=self.visit(ctx.expressao_decl()),
+        if ctx.expression_decl():
+            return Stm(child=self.visit(ctx.expression_decl()),
                        line=ctx.start.line,
                        )
-        elif ctx.composto_decl():
-            return Stm(child=self.visit(ctx.composto_decl()),
+        elif ctx.compound_decl():
+            return Stm(child=self.visit(ctx.compound_decl()),
                        line=ctx.start.line, )
-        elif ctx.selecao_decl():
-            return Stm(child=self.visit(ctx.selecao_decl()),
+        elif ctx.selection_decl():
+            return Stm(child=self.visit(ctx.selection_decl()),
                        line=ctx.start.line, )
-        elif ctx.iteracao_decl():
-            return Stm(child=self.visit(ctx.iteracao_decl()),
+        elif ctx.iteration_decl():
+            return Stm(child=self.visit(ctx.iteration_decl()),
                        line=ctx.start.line, )
-        elif ctx.retorno_decl():
-            return Stm(child=self.visit(ctx.retorno_decl()),
+        elif ctx.return_decl():
+            return Stm(child=self.visit(ctx.return_decl()),
                        line=ctx.start.line, )
 
     # Visit a parse tree produced by CminusParser#expressao_decl.
-    def visitExpressao_decl(self, ctx: CminusParser.Expressao_declContext):
-        return ExpressaoDecl(
-            exp=self.visit(ctx.expressao()) if ctx.expressao() is not None else None,
+    def visitExpression_decl(self, ctx:CminusParser.Expression_declContext):
+        return ExpressionDecl(
+            exp=self.visit(ctx.expression()) if ctx.expression() is not None else None,
             line=ctx.start.line,
         )
 
     # Visit a parse tree produced by CminusParser#selecao_decl.
-    def visitSelecao_decl(self, ctx: CminusParser.Selecao_declContext):
-        if ctx.corpoElse is not None:
+    def visitSelection_decl(self, ctx: CminusParser.Selection_declContext):
+        if ctx.bodyElse is not None:
             return IfDecl(
-                condicao=self.visit(ctx.condicao),
-                corpoIf=[self.visit(cif) for cif in ctx.corpoIF],
-                corpoElse=[self.visit(cel) for cel in ctx.corpoElse],
+                condition=self.visit(ctx.condition),
+                body_if=[self.visit(cif) for cif in ctx.bodyIF],
+                body_else=[self.visit(cel) for cel in ctx.bodyElse],
                 line=ctx.start.line,
             )
         return IfDecl(
-            condicao=self.visit(ctx.expressao()),
-            corpoIf=[self.visit(cif) for cif in ctx.corpoIF],
-            corpoElse=[],
+            condition=self.visit(ctx.expression()),
+            body_if=[self.visit(cif) for cif in ctx.bodyIF],
+            body_else=[],
             line=ctx.start.line,
         )
 
     # Visit a parse tree produced by CminusParser#iteracao_decl.
-    def visitIteracao_decl(self, ctx: CminusParser.Iteracao_declContext):
+    def visitIteration_decl(self, ctx: CminusParser.Iteration_declContext):
         return WhileDecl(
-            condicao=self.visit(ctx.expressao()),
-            corpo=self.visit(ctx.statement()),
+            condition=self.visit(ctx.expression()),
+            body=self.visit(ctx.statement()),
             line=ctx.start.line,
         )
 
     # Visit a parse tree produced by CminusParser#retorno_decl.
-    def visitRetorno_decl(self, ctx: CminusParser.Retorno_declContext):
-        if ctx.expressao() is not None:
+    def visitReturn_decl(self, ctx: CminusParser.Return_declContext):
+        if ctx.expression() is not None:
             return ReturnDecl(
-                expressao=self.visit(ctx.expressao()),
+                expression=self.visit(ctx.expression()),
                 line=ctx.start.line,
             )
         return ReturnDecl(
-            expressao=None,
+            expression=None,
             line=ctx.start.line,
         )
 
     # Visit a parse tree produced by CminusParser#expressao.
-    def visitExpressao(self, ctx: CminusParser.ExpressaoContext):
-        if ctx.simples_expressao() is not None:
+    def visitExpression(self, ctx: CminusParser.ExpressionContext):
+        if ctx.simple_expression() is not None:
             return Express(
                 var=None,
-                expressao=None,
-                simplesExpressao=self.visit(ctx.simples_expressao()),
+                expression=None,
+                simple_expression=self.visit(ctx.simple_expression()),
                 line=ctx.start.line,
             )
         return Express(
             var=self.visit(ctx.var()),
-            expressao=self.visit(ctx.expressao()),
-            simplesExpressao=None,
+            expression=self.visit(ctx.expression()),
+            simple_expression=None,
             line=ctx.start.line,
         )
 
     # Visit a parse tree produced by CminusParser#var.
     def visitVar(self, ctx: CminusParser.VarContext):
-        if ctx.expressao() is not None:
-            return Variavel(
+        if ctx.expression() is not None:
+            return Variable(
                 id_=ctx.ID().getText(),
-                expressao=self.visit(ctx.expressao()),
+                expression=self.visit(ctx.expression()),
                 line=ctx.start.line,
             )
-        return Variavel(
+        return Variable(
             id_=ctx.ID().getText(),
             line=ctx.start.line,
         )
 
     # Visit a parse tree produced by CminusParser#simples_expressao.
-    def visitSimples_expressao(self, ctx: CminusParser.Simples_expressaoContext):
+    def visitSimple_expression(self, ctx:CminusParser.Simple_expressionContext):
         return Comp(
-            esq=self.visit(ctx.esquerda) if ctx.esquerda else None,
-            relacional=ctx.relacional.text if ctx.relacional else None,
-            dir=self.visit(ctx.direita) if ctx.direita else None,
-            operacao=self.visit(ctx.operacao) if ctx.operacao else None,
+            left=self.visit(ctx.left) if ctx.left else None,
+            relational=ctx.relational.text if ctx.relational else None,
+            right=self.visit(ctx.right) if ctx.right else None,
+            operation=self.visit(ctx.operation) if ctx.operation else None,
             line=ctx.start.line,
         )
 
         # Visit a parse tree produced by CminusParser#soma_expressao.
 
-    def visitSoma_expressao(self, ctx: CminusParser.Soma_expressaoContext):
-        return Operacao(
-            esq=self.visit(ctx.soma_expressao()) if ctx.soma_expressao() else None,
+    def visitAdditive_expression(self, ctx: CminusParser.Additive_expressionContext):
+        return Operation(
+            left=self.visit(ctx.additive_expression()) if ctx.additive_expression() else None,
             op=ctx.op.text if ctx.op else None,
-            dir=self.visit(ctx.termo()) if ctx.termo() else None,
+            right=self.visit(ctx.term()) if ctx.term() else None,
             line=ctx.start.line,
         )
 
     # Visit a parse tree produced by CminusParser#termo.
-    def visitTermo(self, ctx: CminusParser.TermoContext):
-        return Operacao(
-            esq=self.visit(ctx.termo()) if ctx.termo() else None,
+    def visitTerm(self, ctx: CminusParser.TermContext):
+        return Operation(
+            left=self.visit(ctx.term()) if ctx.term() else None,
             op=ctx.op.text if ctx.op else None,
-            dir=self.visit(ctx.fator()) if ctx.fator() else None,
+            right=self.visit(ctx.factor()) if ctx.factor() else None,
             line=ctx.start.line,
         )
 
     # Visit a parse tree produced by CminusParser#fator.
-    def visitFator(self, ctx: CminusParser.FatorContext):
-        return fat(
-            num=ctx.NUM().getText() if ctx.NUM() else None,
-            variavel=self.visit(ctx.var()) if ctx.var() else None,
-            ativacao=self.visit(ctx.ativacao()) if ctx.ativacao() else None,
-            expressao=self.visit(ctx.expressao()) if ctx.expressao() else None,
+    def visitFactor(self, ctx: CminusParser.FactorContext):
+        return Factor(
+            num=ctx.NUMBER().getText() if ctx.NUMBER() else None,
+            variable=self.visit(ctx.var()) if ctx.var() else None,
+            call=self.visit(ctx.call()) if ctx.call() else None,
+            expression=self.visit(ctx.expression()) if ctx.expression() else None,
             line=ctx.start.line,
         )
 
     # Visit a parse tree produced by CminusParser#ativacao.
-    def visitAtivacao(self, ctx: CminusParser.AtivacaoContext):
-        return Ativ(
+    def visitCall(self, ctx: CminusParser.CallContext):
+        return Call(
             id_=ctx.ID().getText(),
-            argLista=[self.visit(args) for args in ctx.arg_list] if ctx.expressao() is not None else None,
+            arg_list=[self.visit(args) for args in ctx.arg_list] if ctx.expression() is not None else None,
             line=ctx.start.line,
         )
 
