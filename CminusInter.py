@@ -1,3 +1,4 @@
+from tabulate import tabulate
 import CminusAST
 
 
@@ -10,6 +11,11 @@ class IntermedCode(CminusAST.AstVisitor):
         self.label = 0
         self.sys_call = ['input', 'output']
         self.visit(ast_)
+
+    def __str__(self):
+        return tabulate(tabular_data=[line for line in self.intermediate],
+                        headers=['Instruction', 'param 1', 'param 2', 'param 3'],
+                        tablefmt='grid')
 
     def visit_Program(self, no: CminusAST.Program):
         for decl in no.declList:

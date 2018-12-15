@@ -25,7 +25,5 @@ print(semantic)
 
 inter = CminusInter.IntermedCode(ast)
 
-for line in inter.intermediate:
-    for elem in line:
-        print('{:<15}'.format(elem) + '|', end=' ')
-    print('')
+print(inter)
+
