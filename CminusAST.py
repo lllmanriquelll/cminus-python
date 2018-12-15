@@ -90,7 +90,7 @@ class CreateAst(CminusVisitor):
     # Visit a parse tree produced by CminusParser#composto_decl.
     def visitCompound_decl(self, ctx: CminusParser.Compound_declContext):
         return CompDecl(
-            local_decl=[self.visit(decl) for decl in ctx.local_declarations] if ctx.local_declarations() else [],
+            local_decl=[self.visit(decl) for decl in ctx.l_decl] if ctx.local_declarations() else [],
             stm_list=[self.visit(stm) for stm in ctx.stm_list] if ctx.statement_list() else [],
             line=ctx.start.line,
         )
@@ -98,7 +98,7 @@ class CreateAst(CminusVisitor):
     # Visit a parse tree produced by CminusParser#local_declaracoes.
     def visitLocal_declarations(self, ctx: CminusParser.Local_declarationsContext):
         return LocalDeclarations(
-            var_decl=[self.visit(decl) for decl in ctx.var_declaration],
+            var_decl=[self.visit(decl) for decl in ctx.var_decl],
             line=ctx.start.line,
         )
 
@@ -129,7 +129,7 @@ class CreateAst(CminusVisitor):
                        line=ctx.start.line, )
 
     # Visit a parse tree produced by CminusParser#expressao_decl.
-    def visitExpression_decl(self, ctx:CminusParser.Expression_declContext):
+    def visitExpression_decl(self, ctx: CminusParser.Expression_declContext):
         return ExpressionDecl(
             exp=self.visit(ctx.expression()) if ctx.expression() is not None else None,
             line=ctx.start.line,
@@ -201,7 +201,7 @@ class CreateAst(CminusVisitor):
         )
 
     # Visit a parse tree produced by CminusParser#simples_expressao.
-    def visitSimple_expression(self, ctx:CminusParser.Simple_expressionContext):
+    def visitSimple_expression(self, ctx: CminusParser.Simple_expressionContext):
         return Comp(
             left=self.visit(ctx.left) if ctx.left else None,
             relational=ctx.relational.text if ctx.relational else None,
@@ -256,5 +256,3 @@ class AstVisitor:
 
     def generic_visit(self, node):
         raise Exception('No visit_{} method'.format(type(node).__name__))
-
-
