@@ -5,6 +5,7 @@ from CminusAST import CreateAst
 from gen.CminusLexer import CminusLexer
 from gen.CminusParser import CminusParser
 from CminusTable import SemanticAnalysisTableG
+from CminusInter2MIPS import IntermediateToMIPS
 
 input_stream = FileStream('files/simple_test.c-')
 lexer = CminusLexer(input_stream)
@@ -21,9 +22,18 @@ if semantic.errors:
         print(error)
     sys.exit()
 
-print(semantic)
-
 inter = CminusInter.IntermedCode(ast)
 
-print(inter)
+asm = IntermediateToMIPS(semantic, inter)
 
+print("#" * 110)
+
+print(asm)
+
+print("#" * 110)
+
+print(asm.semantic)
+
+print("#" * 110)
+
+print(asm.intermediate)
